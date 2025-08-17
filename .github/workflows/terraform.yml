@@ -3,12 +3,12 @@ name: Cloudcore IAC
 on:
     push:
       branches: 
-        - master
+        - main
       paths: 
         - terraform/**
     pull_request:
       branches: 
-        - master
+        - main
       paths: 
         - terraform/**
 env:
@@ -16,8 +16,8 @@ env:
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     # S3 bucket for the terraform state. 
-    BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
-    AWS_REGION: us-east-1
+    BUCKET_TF: ${{ secrets.BUCKET_TF }}
+    AWS_REGION: eu-north-1
 
 jobs:
     terraform:
@@ -36,7 +36,7 @@ jobs:
 
         - name: Terraform Init
           id: init
-          run: terraform init -backend-config "bucket=$BUCKET_TF_STATE"
+          run: terraform init -backend-config "bucket=$BUCKET_TF"
 
         - name: Terraform Format
           id: fmt
